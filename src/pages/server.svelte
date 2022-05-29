@@ -26,7 +26,7 @@
   <Actions id="actions-one-group">
     <ActionsGroup>
       <ActionsLabel>{current_file}</ActionsLabel>
-      <ActionsButton bold>Download</ActionsButton>
+      <ActionsButton bold on:click={download}>Download</ActionsButton>
       <ActionsButton color="red">Cancel</ActionsButton>
     </ActionsGroup>
   </Actions>
@@ -36,28 +36,48 @@
 <script>
     import '@fortawesome/fontawesome-free/css/all.css'
     import { onMount } from 'svelte';
+    import { Filesystem, Directory, Encoding} from '@capacitor/filesystem';
     import {Page, Navbar, Button, Block, BlockTitle, NavLeft, NavTitle, Link, List, ListItem, f7, Actions, ActionsGroup, ActionsButton, ActionsLabel} from 'framework7-svelte';
     export let f7route;
     const serverip = f7route.params.ip;
-    let files = [], path, current_file;
+    let files = [], path, current_file, virt_path = "";
     onMount(async ()=>{
-        const request = await fetch("http://" + serverip + '/' + 'getconfig');
-        if (request.ok) {
-            const json = await request.json();
-            path = json.path;
-        } else {
-            f7.dialog.alert("Error during connection of server, more detail on device log");
-            console.log('HTTP-Error: ' + request.status);
+        // try {
+        //     fetch("http://" + serverip + '/' + 'getconfig')
+        //     .then(response => response.json())
+        //     .then(data => alert(data));
+        // } catch (error) {
+        //     alert(error);
+        // }
+
+        // alert(serverip)
+        // const request = await fetch();
+        // if (request.ok) {
+        //     const json = await request.json();
+        //     path = json.path;
+        //     alert(path);
+        // } else {
+        //     f7.dialog.alert("Error during connection of server, more detail on device log");
+        //     alert('HTTP-Error: ' + request.status);
+        // }
+        try {
+            const xhr = new XMLHttpRequest();
+            let url = "http://" + serverip + '/' + 'getfiles';
+            console.log(url);
+            xhr.open('POST', url, true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    files = JSON.parse(this.response);
+                    alert(files);
+                }
+            };
+            xhr.send(JSON.stringify({ folder: "/Users/andreacanale/Desktop/Clurd" }));
+        } catch (error) {
+            alert(error);
         }
-        const xhr = new XMLHttpRequest();
-		let url = "http://" + serverip + '/' + 'getfiles';
-		console.log(url);
-		xhr.open('POST', url, true);
-		xhr.onreadystatechange = function () {
-			if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-				files = JSON.parse(this.response);
-			}
-		};
-		xhr.send(JSON.stringify({ folder: path }));
+       
     });
+    function download(){
+        let prova = Filesystem.requestPermissions().then(msg => console.log(msg))
+    }
 </script>
