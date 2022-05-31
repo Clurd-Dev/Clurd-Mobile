@@ -1,28 +1,5 @@
 <App { ...f7params } dark>
 
-  <!-- Left panel with cover effect-->
-  <Panel left cover dark>
-    <View>
-      <Page>
-        <Navbar title="Left Panel"/>
-        <Block>Left panel content goes here</Block>
-      </Page>
-    </View>
-  </Panel>
-
-
-  <!-- Right panel with reveal effect-->
-  <Panel right reveal dark>
-    <View>
-      <Page>
-        <Navbar title="Right Panel"/>
-        <Block>Right panel content goes here</Block>
-      </Page>
-    </View>
-  </Panel>
-
-
-  <!-- Views/Tabs container -->
   <Views tabs class="safe-areas">
     <!-- Tabbar for switching views-tabs -->
     <Toolbar tabbar labels bottom>

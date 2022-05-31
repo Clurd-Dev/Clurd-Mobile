@@ -1,9 +1,6 @@
 <Page name="home">
   <!-- Top Navbar -->
-  <Navbar large sliding={false}>
-    <NavLeft>
-      <Link iconIos="f7:menu" iconAurora="f7:menu" iconMd="material:menu" panelOpen="left" />
-    </NavLeft>
+  <Navbar sliding={false}>
     <NavTitle sliding>Clurd</NavTitle>
     <NavTitleLarge>Clurd</NavTitleLarge>
   </Navbar>
@@ -42,9 +39,11 @@
   } from 'framework7-svelte';
   import { servers_store } from '../js/servers';
   import { onMount } from 'svelte';
+  import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+
   let servers = [];
 
-  onMount(()=>{
+  onMount(async ()=>{  
     let servers_from_store = localStorage.getItem("servers");
     if(servers_from_store != undefined){
       servers = JSON.parse(localStorage.getItem("servers"));

@@ -21,6 +21,7 @@
     "Samsung >= 12"
   ],
   "dependencies": {
+    "@capacitor-community/http": "^1.4.1",
     "@capacitor/android": "^3.5.1",
     "@capacitor/app": "^1.1.1",
     "@capacitor/browser": "^1.0.7",
@@ -30,7 +31,6 @@
     "@capacitor/keyboard": "^1.2.2",
     "@capacitor/splash-screen": "^1.2.2",
     "@capacitor/status-bar": "^1.0.8",
-    "@fortawesome/fontawesome-free": "^6.1.1",
     "dom7": "^4.0.4",
     "framework7": "^7.0.4",
     "framework7-icons": "^5.0.5",
