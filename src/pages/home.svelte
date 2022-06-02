@@ -40,9 +40,7 @@
   import { servers_store } from '../js/servers';
   import { onMount } from 'svelte';
   import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
-
   let servers = [];
-
   onMount(async ()=>{  
     let servers_from_store = localStorage.getItem("servers");
     if(servers_from_store != undefined){
