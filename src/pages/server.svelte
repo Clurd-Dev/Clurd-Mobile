@@ -5,6 +5,9 @@
         </NavLeft>
         <NavTitle sliding>{serverip}</NavTitle>
       </Navbar>
+      <Fab position="right-bottom" color="orange" on:click={sync}>
+        <Icon ios="f7:arrow_2_circlepath_circle" aurora="f7:arrow_2_circlepath_circle" md="material:autorenew"></Icon>
+      </Fab>
     <Block>
         <Link iconF7="arrow_left" text="Go back" on:click={goback}></Link>
         <List>
@@ -49,8 +52,9 @@
     import { getconfig, rename_file, remove_file } from '../js/server_io.js';
     import { onMount } from 'svelte';
     import { Filesystem, Directory, Encoding} from '@capacitor/filesystem';
-    import {Page, Icon, Navbar, Button, Block, BlockTitle, NavLeft, NavTitle, Link, List, ListItem, f7, Actions, ActionsGroup, ActionsButton, ActionsLabel, Row, Col} from 'framework7-svelte';
+    import {Page, Icon, Navbar, Button, Fab, FabButton,Block, BlockTitle, NavLeft, NavTitle, Link, List, ListItem, f7, Actions, ActionsGroup, ActionsButton, ActionsLabel, Row, Col} from 'framework7-svelte';
     import { Http } from '@capacitor-community/http';
+    import { download_folder } from '../js/sync.js';
     export let f7route;
     const serverip = f7route.params.ip;
     let  files = [], path, current_file, virt_path = "/", index , initial;  
@@ -138,5 +142,8 @@
         }else{
             f7.dialog.alert("Can't go back through home");
         }
+    }
+    function sync(){
+        f7.dialog.confirm("Are you sure to sync this folder in your phone?", "Sync folder", ()=> download_folder(files, virt_path, serverip, path));
     }
 </script>

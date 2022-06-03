@@ -1,4 +1,4 @@
-import {f7} from 'framework7-svelte';
+import { f7 } from 'framework7-svelte';
 import { Http } from '@capacitor-community/http';
 export async function getconfig(url){
     const response_path = await Http.get({
